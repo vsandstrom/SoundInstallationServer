@@ -1,4 +1,6 @@
 
+// TODO: [  ] make it listen to other inputs other than localhost
+
 const osc = require('osc');
 const express = require('express');
 const http = require('http')

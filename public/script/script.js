@@ -1,5 +1,5 @@
 // TODO: make socket.io work
-const io = new WebSocket("ws://localhost:80")
+const io = new WebSocket("ws://192.168.0.10:80")
 
 // TODO: change showCVal and showSVal to event listeners instead. 
 var clickedSmudge = 0;
@@ -18,27 +18,27 @@ document.addEventListener('DOMContentLoaded', () => {
 	slider0.addEventListener("input", function(e) {
 		let val = parseInt(e.target.value);
 
-		// TODO: send value through websocket
+		// send value through websocket
 		io.send(JSON.stringify(['slider0', {val}]));
 
-		// updates value on website
+		// updates value on website in <span id="cVal">
 		document.getElementById("cVal").innerHTML=e.target.value;
 	});
 
 	slider1.addEventListener("input", function(e) {
 		let val = parseInt(e.target.value);
 
-		// TODO: send value through websocket
+		// send value through websocket
 		io.send(JSON.stringify(['slider1', {val}]));
 		
-		// updates value on website
+		// updates value on website in <span id="sVal">
 		document.getElementById("sVal").innerHTML=e.target.value;
 	});
 
 	resetButton.addEventListener("mouseup", function(e) {
 		let val = 1;
 		
-		// TODO: send value through websocket
+		// send value through websocket
 		io.send(JSON.stringify(['reset', {val}]));
 			
 		if (e.target.innerHTML == 'stopReset') {
@@ -50,13 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		setTimeout(function() {
 			e.target.innerHTML = "stopReset"
 			e.target.removeAttribute("disabled");
+
+			// button trigger delay
 			val = 0;
 			io.send(JSON.stringify(['reset', {val}]));
-		}, 3e3);
+		}, 0.5e3);
 	}, false);
 
 	smudgeButton.addEventListener("click", function(e) {
 		let val;
+
+		// toggle values sent to websocket
 		if (clickedSmudge) {
 			val = clickedSmudge;
 			clickedSmudge = 0;
