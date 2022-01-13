@@ -1,19 +1,18 @@
 
-// TODO: [  ] make it listen to other inputs other than localhost
-
-const osc = require('osc');
 const express = require('express');
 const http = require('http')
+const osc = require('osc');
 const WebSocket = require('ws');
 
 const app = express();
 const server = http.createServer(app);
-const socket = new WebSocket.Server({ server });
+const socket = new WebSocket.Server({server});
 
 var udpPort = new osc.UDPPort({
 	localAddress: "127.0.0.1", // default listen port
-	localPort: 57121,
+	localPort: 57122,
 	remoteAddress: "127.0.0.1",
+	// remoteAddress: "192.168.1.12",
 	remotePort: 57120,
 	metadata: true
 });
@@ -53,7 +52,7 @@ socket.on('connection', (ws) => {
 				]
 			};
 			udpPort.send(oscmsg);
-		} else if (msg[0] == "slider0"){
+		} else if (msg[0] == "slider0") {
 			console.log(msg);
 
 			let oscmsg = {
@@ -66,7 +65,7 @@ socket.on('connection', (ws) => {
 				]
 			};
 			udpPort.send(oscmsg);
-		} else if (msg[0] == "slider1"){
+		} else if (msg[0] == "slider1") {
 			console.log(msg);
 
 			let oscmsg = {
@@ -89,7 +88,7 @@ socket.on('connection', (ws) => {
 })
 
 server.listen(process.env.PORT || 80, () => {
-    console.log("Server started on port %s", server.address().port);
+	console.log("Server started on port %s", server.address().port);
 });
 
 // setInterval( function() {

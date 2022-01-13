@@ -1,5 +1,5 @@
 // TODO: make socket.io work
-const io = new WebSocket("ws://192.168.0.10:80")
+const io = new WebSocket("ws://127.0.0.1:80")
 
 // TODO: change showCVal and showSVal to event listeners instead. 
 var clickedSmudge = 0;
@@ -57,10 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		}, 0.5e3);
 	}, false);
 
-	smudgeButton.addEventListener("click", function(e) {
+	smudgeButton.addEventListener("mouseup", function(e) {
 		let val;
-
+		
 		// toggle values sent to websocket
+		// TODO: let server handle, so that the GUI follows what happens in SC, not the users personal interface. if
+		// smudge is on, it should show
 		if (clickedSmudge) {
 			val = clickedSmudge;
 			clickedSmudge = 0;
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			clickedSmudge = 1;
 		};
 
-		// TODO: send value through websocket
+		// send value through websocket
 		io.send(JSON.stringify(['smudge', {val}]));
 
 		// disables button for 1 second

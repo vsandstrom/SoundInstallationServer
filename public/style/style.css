@@ -1,3 +1,9 @@
+input[type="range"] {
+	width: 200px;
+	height: 40px;
+
+}
+
 .slidecontainer {
 	margin: 35px;
 	width: 10%;
