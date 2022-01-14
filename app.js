@@ -3,10 +3,24 @@ const express = require('express');
 const http = require('http')
 const osc = require('osc');
 const WebSocket = require('ws');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
 const socket = new WebSocket.Server({server});
+
+app.set("view engine", "pug");
+app.set("index", path.join(__dirname+"/public/", "index"));
+
+const router = express.Router();
+
+router.get('/', (req, res) => {
+	res.render("index");
+});
+
+app.use('/', router);
+
+
 
 var udpPort = new osc.UDPPort({
 	localAddress: "127.0.0.1", // default listen port
@@ -92,6 +106,7 @@ app.get
 server.listen(process.env.PORT || 80, () => {
 	let addr = server.address();
 	console.log("Server started on port %s", addr.port);
+
 });
 
 // setInterval( function() {
