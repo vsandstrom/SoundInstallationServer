@@ -85,10 +85,13 @@ socket.on('connection', (ws) => {
 
 		}
 	})
-})
+});
+
+app.get
 
 server.listen(process.env.PORT || 80, () => {
-	console.log("Server started on port %s", server.address().port);
+	let addr = server.address();
+	console.log("Server started on port %s", addr.port);
 });
 
 // setInterval( function() {
