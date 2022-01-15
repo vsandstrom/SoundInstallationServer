@@ -1,0 +1,30 @@
+extends index.pug
+block content
+	h1#title
+	.slidecontainer
+		label#changeID Number of changes
+		input#change.slider(type='range', min='0', max='250', value='0', name='change')
+		span#cVal
+	div
+	.slidecontainer
+		label#sizeID Size of each change
+		input#size.slider(type='range', min='0', max='15000', value='0', name='size')
+		span#sVal
+	.slidecontainer
+		.resetButton
+			button#reset stopReset
+		.smudgeButton
+			button#smudge smudgeOn
+		.logoutButton
+			button#logout get out
+
+
+block script
+
+	script(src='script/script.js')
+	link(rel='stylesheet', href='style/style.css')
+	// script
+	// 	include script.js
+	// style
+	// 	include style.css
+

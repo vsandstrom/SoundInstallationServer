@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	var slider1 = document.getElementById('size');
 	var resetButton = document.getElementById('reset');
 	var smudgeButton = document.getElementById('smudge');
+	var login = document.getElementById('login');
+	var logout = document.getElementById('logout');
+
 
 	if(smudgeButton || slider0 || slider1 || resetButton) {
 		alert("Welcome");
@@ -90,6 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		}, 1e3);
 
 	}, false);
+
+	// login.addEventListener("mouseup" function(e) {
+	// 	// TODO:
+
+	// });
+
+	// logout.addEventListener("mouseup" function(e) {
+	// 	// TODO:
+
+	// });
+
 
 
 	// resetButton.oninput(function() {

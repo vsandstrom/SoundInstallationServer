@@ -1,14 +1,31 @@
+body {
+	background-color: lightblue;
+}
+
 input[type="range"] {
 	width: 200px;
 	height: 40px;
 
 }
 
+button {
+	border: none;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor:pointer;
+	font-family: Monaco;
+	font-size: 14px;
+}
+
 .slidecontainer {
 	margin: 35px;
 	width: 10%;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Monaco;
+	font-size: 14px;
 }
+
 .slider {
 	-webkit-appearance: none;
 	background: #f9b3ff;
@@ -17,20 +34,41 @@ input[type="range"] {
 	-webkit-transition: .2s;
 	transition: opacity .2s;
 }
+
 .slider:hover {
 	opacity: 1;
 }
 
-.resetButton {
-	margin: 35px;
+.controlButton {
+	margin-top: 30px;
 }
-.smudgeButton {
-	margin: 35px;
+
+#reset {
+	background-color: #333333;
+	color: white;
 }
+
+#smudge {
+	margin-top: 35px;
+	background-color: #f44336;
+	color: white;
+}
+
+#logout {
+	background-color: #555555;
+	color: white;
+}
+
+
+.loginButton {
+	margin: 70px;
+}
+
+.logoutButton {
+	margin-top: 70px;
+}
+
 #label {
 	color: grey;
 }
 
-body {
-	background-color: lightblue;
-}

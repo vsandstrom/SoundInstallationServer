@@ -4,18 +4,32 @@ const http = require('http')
 const osc = require('osc');
 const WebSocket = require('ws');
 const path = require('path');
+const os = require('os');
 
 const app = express();
 const server = http.createServer(app);
+
 const socket = new WebSocket.Server({server});
 
+console.log(os.networkInterfaces().en0[1].address);
+
+app.use(express.static('public'))
 app.set("view engine", "pug");
-app.set("index", path.join(__dirname+"/public/", "index"));
+app.set("index", path.join(__dirname+"/views/", "index.pug"));
+app.set("index", path.join(__dirname+"/views/", "index.pug"));
+// app.set("play", path.join(__dirname+"/views/", "play.pug"));
 
 const router = express.Router();
 
+var ip = [];
+
 router.get('/', (req, res) => {
-	res.render("index");
+		
+		// TODO: check if button has been pressed, add to ip-array
+		// res.render something else;
+	res.render("play");
+	ip.push(req.ip);
+	console.log(ip);
 });
 
 app.use('/', router);
