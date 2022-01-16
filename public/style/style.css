@@ -21,10 +21,11 @@ button {
 
 .slidecontainer {
 	margin: 35px;
-	width: 10%;
+	width: 100%;
 	font-family: Monaco;
 	font-size: 14px;
 }
+
 
 .slider {
 	-webkit-appearance: none;

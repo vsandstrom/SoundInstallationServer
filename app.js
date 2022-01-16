@@ -27,9 +27,9 @@ router.get('/', (req, res) => {
 		
 		// TODO: check if button has been pressed, add to ip-array
 		// res.render something else;
-	res.render("play");
 	ip.push(req.ip);
 	console.log(ip);
+	res.render("play");
 });
 
 app.use('/', router);
@@ -60,7 +60,7 @@ socket.on('connection', (ws) => {
 				args: [
 					{
 						type: "i",
-						value: msg[1]['val']
+						value: msg[1].val
 					}
 				]
 			};
@@ -75,7 +75,7 @@ socket.on('connection', (ws) => {
 				args: [
 					{
 						type: "i",
-						value: msg[1]['val']
+						value: msg[1].val
 					}
 				]
 			};
@@ -88,7 +88,7 @@ socket.on('connection', (ws) => {
 				args: [
 					{
 						type: "i",
-						value: msg[1]['val']
+						value: msg[1].val
 					}
 				]
 			};
@@ -101,7 +101,7 @@ socket.on('connection', (ws) => {
 				args: [
 					{
 						type: "i",
-						value: msg[1]['val']
+						value: msg[1].val
 					}
 				]
 			};
