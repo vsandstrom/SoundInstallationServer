@@ -20,7 +20,13 @@ const router = express.Router();
 let ip = [];
 let login = false;
 
+
+////////////////////////////////////////////////////////////////////////////////
+// ROUTING:
+////////////////////////////////////////////////////////////////////////////////
+
 router.get('/', function(req, res) {
+	console.log(ip);
 		
 // 	// TODO: check if button has been pressed, add to ip-array
 // 	// res.render something else;
@@ -35,7 +41,8 @@ router.get('/', function(req, res) {
 router.get('/login', function(req, res) {
 	console.log("yo");
 	// res.redirect('/');
-	if(login){
+	login = true;
+	if(login && ip.length == 0) {
 		ip.push(req.ip);
 		res.redirect('/');
 	} else if (!login) {
@@ -46,6 +53,7 @@ router.get('/login', function(req, res) {
 router.get('/logout', function(req, res) {
 	if (login) {
 		login = false;
+		ip.pop(ip.findIndex(req.ip));
 	}
 
 });
