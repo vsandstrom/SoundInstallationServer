@@ -1,4 +1,3 @@
-
 const express = require('express');
 const http = require('http')
 const osc = require('osc');
@@ -8,32 +7,53 @@ const os = require('os');
 
 const app = express();
 const server = http.createServer(app);
-
 const socket = new WebSocket.Server({server});
 
 console.log(os.networkInterfaces().en0[1].address);
 
-app.use(express.static('public'))
 app.set("view engine", "pug");
 app.set("index", path.join(__dirname+"/views/", "index.pug"));
-app.set("index", path.join(__dirname+"/views/", "index.pug"));
-// app.set("play", path.join(__dirname+"/views/", "play.pug"));
+app.set("play", path.join(__dirname+"/views/", "play.pug"));
+app.set("login", path.join(__dirname+"/views/", "login.pug"));
 
 const router = express.Router();
+let ip = [];
+let login = false;
 
-var ip = [];
-
-router.get('/', (req, res) => {
+router.get('/', function(req, res) {
 		
-		// TODO: check if button has been pressed, add to ip-array
-		// res.render something else;
-	ip.push(req.ip);
-	console.log(ip);
-	res.render("play");
+// 	// TODO: check if button has been pressed, add to ip-array
+// 	// res.render something else;
+// 	// // app.enable("trust proxy");
+	if (login){
+		res.render("play");
+	} else {
+		res.redirect("/login");
+	}
+});
+
+router.get('/login', function(req, res) {
+	console.log("yo");
+	// res.redirect('/');
+	if(login){
+		ip.push(req.ip);
+		res.redirect('/');
+	} else if (!login) {
+		res.render("login");
+	};
+});
+
+router.get('/logout', function(req, res) {
+	if (login) {
+		login = false;
+	}
+
 });
 
 app.use('/', router);
 
+// must be after app.get for some reason, otherwise it wont log the IP of the user.
+app.use(express.static('public'))
 
 
 var udpPort = new osc.UDPPort({
@@ -106,6 +126,11 @@ socket.on('connection', (ws) => {
 				]
 			};
 			udpPort.send(oscmsg);
+		} else if (msg[0] == "login") {
+			let val = msg[1];
+			login = val;
+			console.log(typeof(msg[1]));
+
 		} else {
 			// catch all if wrong values are transmitted
 			console.log('recieved: %s', msg[0]);
@@ -115,13 +140,15 @@ socket.on('connection', (ws) => {
 	})
 });
 
-app.get
-
 server.listen(process.env.PORT || 80, () => {
 	let addr = server.address();
 	console.log("Server started on port %s", addr.port);
 
 });
+
+// ----------------------------------------
+// Testing OSC transmission to SC
+// ----------------------------------------
 
 // setInterval( function() {
 // 	var msg = {

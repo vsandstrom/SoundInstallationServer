@@ -3,16 +3,21 @@ block content
 	h1#title
 	.slidecontainer
 		label#changeID Number of changes
-		input#change.slider(type='range', min='0', max='250', value='0', name='change')
-		span#cVal
+		div
+			input#change.slider(type='range', min='0', max='250', value='0', name='change')
+		div
+		span#cVal=0
 	div
 	.slidecontainer
 		label#sizeID Size of each change
-		input#size.slider(type='range', min='0', max='15000', value='0', name='size')
-		span#sVal
+		div
+			input#size.slider(type='range', min='0', max='15000', value='0', name='size')
+		div
+			span#sVal=0
 	.slidecontainer
-		.controlButton
+		.resetButton
 			button#reset stopReset
+		.smudgeButton
 			button#smudge smudgeOn
 		.logoutButton
 			button#logout get out
