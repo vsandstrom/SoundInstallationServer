@@ -19,8 +19,9 @@ block content
 			button#reset stopReset
 		.smudgeButton
 			button#smudge smudgeOn
+		form(role='form' method='GET' action='/logout')
 		.logoutButton
-			button#logout get out
+				button#logout(type='submit') get out
 
 
 block script

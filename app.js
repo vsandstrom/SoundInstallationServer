@@ -10,14 +10,16 @@ const server = http.createServer(app);
 const socket = new WebSocket.Server({server});
 
 console.log(os.networkInterfaces().en0[1].address);
+console.log(os.networkInterfaces());
 
 app.set("view engine", "pug");
 app.set("index", path.join(__dirname+"/views/", "index.pug"));
 app.set("play", path.join(__dirname+"/views/", "play.pug"));
 app.set("login", path.join(__dirname+"/views/", "login.pug"));
+app.set("wait", path.join(__dirname+"/views/", "wait.pug"));
 
 const router = express.Router();
-let ip = [];
+const ip = [];
 let login = false;
 
 
@@ -25,37 +27,40 @@ let login = false;
 // ROUTING:
 ////////////////////////////////////////////////////////////////////////////////
 
-router.get('/', function(req, res) {
-	console.log(ip);
-		
 // 	// TODO: check if button has been pressed, add to ip-array
 // 	// res.render something else;
 // 	// // app.enable("trust proxy");
-	if (login){
-		res.render("play");
+	//
+	//
+router.get('/', function(req, res) {
+	console.log(ip);
+	if (ip.length == 1){
+		return res.render("play");
 	} else {
-		res.redirect("/login");
+		return res.redirect("/login");
 	}
 });
 
 router.get('/login', function(req, res) {
-	console.log("yo");
-	// res.redirect('/');
-	login = true;
-	if(login && ip.length == 0) {
+	if (ip.length == 0) {
 		ip.push(req.ip);
-		res.redirect('/');
-	} else if (!login) {
-		res.render("login");
+		return res.redirect('/');
+	} else if (ip.length > 0){
+		return res.redirect('/wait');
 	};
 });
 
 router.get('/logout', function(req, res) {
-	if (login) {
-		login = false;
-		ip.pop(ip.findIndex(req.ip));
-	}
+	ip.pop();
+	return res.redirect('/login');
+});
 
+router.get('/wait', function(req, res) {
+	setInterval(()=>{
+		if (ip.length == 0) {
+			return res.redirect('login');
+		}
+	}, 1e3);
 });
 
 app.use('/', router);
