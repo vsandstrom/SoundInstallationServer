@@ -20,7 +20,6 @@ app.set("wait", path.join(__dirname+"/views/", "wait.pug"));
 
 const router = express.Router();
 const ip = [];
-let login = false;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +66,6 @@ app.use('/', router);
 
 // must be after app.get for some reason, otherwise it wont log the IP of the user.
 app.use(express.static('public'))
-
 
 var udpPort = new osc.UDPPort({
 	localAddress: "127.0.0.1", // default listen port
