@@ -29,8 +29,6 @@ const ip = [];
 // 	// TODO: check if button has been pressed, add to ip-array
 // 	// res.render something else;
 // 	// // app.enable("trust proxy");
-	//
-	//
 router.get('/', function(req, res) {
 	console.log(ip);
 	if (ip.length == 1){

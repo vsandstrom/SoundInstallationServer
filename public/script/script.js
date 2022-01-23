@@ -1,5 +1,6 @@
 // TODO: make socket.io work
-const io = new WebSocket("ws://192.168.1.2:80")
+// const io = new WebSocket("ws://192.168.1.2:80")
+const io = new WebSocket("ws://10.10.40.47:80")
 // const io = new WebSocket("ws://89.253.91.4:8887")
 
 // TODO: change showCVal and showSVal to event listeners instead. 
