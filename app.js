@@ -9,8 +9,19 @@ const app = express();
 const server = http.createServer(app);
 const socket = new WebSocket.Server({server});
 
-console.log(os.networkInterfaces().en0[1].address);
-console.log(os.networkInterfaces());
+console.clear();
+
+console.log('\n	888b     d888888888888888888888888    d8888888b     d888 .d88888b. 8888888b. 8888888b. 888    888 .d88888b.  .d8888b.8888888 .d8888b.  ');
+console.log('	8888b   d8888888           888       d888888888b   d8888d88P" "Y88b888   Y88b888   Y88b888    888d88P" "Y88bd88P  Y88b 888  d88P  Y88b ');
+console.log('	88888b.d88888888           888      d88P88888888b.d88888888     888888    888888    888888    888888     888Y88b.      888  Y88b.      ');
+console.log('	888Y88888P8888888888       888     d88P 888888Y88888P888888     888888   d88P888   d88P8888888888888     888 "Y888b.   888   "Y888b.   ');
+console.log('	888 Y888P 888888           888    d88P  888888 Y888P 888888     8888888888P" 8888888P" 888    888888     888    "Y88b. 888      "Y88b. ');
+console.log('	888  Y8P  888888           888   d88P   888888  Y8P  888888     888888 T88b  888       888    888888     888      "888 888        "888 ');
+console.log('	888   "   888888           888  d8888888888888   "   888Y88b. .d88P888  T88b 888       888    888Y88b. .d88PY88b  d88P 888  Y88b  d88P ');
+console.log('	888       8888888888888    888 d88P     888888       888 "Y88888P" 888   T88b888       888    888 "Y88888P"  "Y8888P"8888888 "Y8888P"  \n');
+
+console.log("Log into this IP: " + os.networkInterfaces().en0[1].address);
+// console.log(os.networkInterfaces());
 
 app.set("view engine", "pug");
 app.set("index", path.join(__dirname+"/views/", "index.pug"));
