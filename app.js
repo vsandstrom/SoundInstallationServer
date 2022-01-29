@@ -20,7 +20,7 @@ console.log('	888  Y8P  888888           888   d88P   888888  Y8P  888888     88
 console.log('	888   "   888888           888  d8888888888888   "   888Y88b. .d88P888  T88b 888       888    888Y88b. .d88PY88b  d88P 888  Y88b  d88P ');
 console.log('	888       8888888888888    888 d88P     888888       888 "Y88888P" 888   T88b888       888    888 "Y88888P"  "Y8888P"8888888 "Y8888P"  \n');
 
-console.log("Log into this IP: " + os.networkInterfaces().en0[1].address);
+console.log("Log onto this IP: http://" + os.networkInterfaces().en0[1].address);
 // console.log(os.networkInterfaces());
 
 app.set("view engine", "pug");
