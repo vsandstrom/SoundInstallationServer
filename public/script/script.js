@@ -1,6 +1,8 @@
-// TODO: make socket.io work
+// TODO: Change IP to the current server
+//
+const io = new WebSocket("ws://10.10.40.245:80")
 // const io = new WebSocket("ws://192.168.1.2:80")
-const io = new WebSocket("ws://10.10.40.47:80")
+// const io = new WebSocket("ws://10.10.40.47:80")
 // const io = new WebSocket("ws://89.253.91.4:8887")
 
 // TODO: change showCVal and showSVal to event listeners instead. 
@@ -15,15 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	var login = document.getElementById('login');
 	var logout = document.getElementById('logout');
 
-
-	// if(smudgeButton || slider0 || slider1 || resetButton) {
-	// 	alert("Welcome");
-	// };
+	// Add addEventListener to each object on webpage
 	if (slider0){
 		slider0.addEventListener("input", function(e) {
 			let val = parseInt(e.target.value);
 
-			// send value through websocket
+			// send value through websocke	// Add addEventListener to each object on webpaget
 			io.send(JSON.stringify(['slider0', {val}]));
 
 			// updates value on website in <span id="cVal">

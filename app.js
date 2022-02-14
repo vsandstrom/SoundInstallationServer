@@ -10,7 +10,6 @@ const server = http.createServer(app);
 const socket = new WebSocket.Server({server});
 
 console.clear();
-
 console.log('\n	888b     d888888888888888888888888    d8888888b     d888 .d88888b. 8888888b. 8888888b. 888    888 .d88888b.  .d8888b.8888888 .d8888b.  ');
 console.log('	8888b   d8888888           888       d888888888b   d8888d88P" "Y88b888   Y88b888   Y88b888    888d88P" "Y88bd88P  Y88b 888  d88P  Y88b ');
 console.log('	88888b.d88888888           888      d88P88888888b.d88888888     888888    888888    888888    888888     888Y88b.      888  Y88b.      ');
