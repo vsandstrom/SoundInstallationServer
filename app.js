@@ -7,7 +7,7 @@ const os = require('os');
 
 const app = express();
 const server = http.createServer(app);
-const socket = new WebSocket.Server({server});
+const socketServer = new WebSocket.Server({noServer: true});
 
 console.clear();
 console.log('\n	888b     d888888888888888888888888    d8888888b     d888 .d88888b. 8888888b. 8888888b. 888    888 .d88888b.  .d8888b.8888888 .d8888b.  ');
@@ -70,10 +70,10 @@ router.get('/wait', function(req, res) {
 	}, 1e3);
 });
 
-app.use('/', router);
+// app.use('/', router);
 
 // must be after app.get for some reason, otherwise it wont log the IP of the user.
-app.use(express.static('public'))
+app.use(express.static('app/dist/'))
 
 var udpPort = new osc.UDPPort({
 	localAddress: "127.0.0.1", // default listen port
@@ -86,10 +86,43 @@ var udpPort = new osc.UDPPort({
 
 udpPort.open();
 
+
+let socketConnection = undefined
 // working websocket connection
-socket.on('connection', (ws) => {
+// server.handleUpgrade(req, socket, header)
+server.on('upgrade', (req, socket, head) => {
+	if(socketConnection){
+		console.log('Failed upgrade!!!');
+		socket.write('fuck you');
+		socket.destroy();
+		return;
+	}
+  // This function is not defined on purpose. Implement it with your own logic.
+	socketServer.handleUpgrade(req, socket, head, (ws) => {
+		socketServer.emit('connection', ws);
+	})
+
+});
+
+
+socketServer.on('connection', (ws) => {
+	if(socketConnection){
+		console.log('kopplingsförsök ej tillåtet. Stänger');
+		ws.close();
+		return;
+	}
+
+	ws.on('close', () =>{
+		socketConnection = undefined;
+		console.log('klient stängde koppling');
+	})
+	//Lets assign the connection so we know it is occupied
+	socketConnection = ws;
+	console.log('kopplingsförsök tillåtet!');
 	ws.on('message', (message) => {
 		msg = JSON.parse(message);
+
+		console.log(msg)
 
 		if (msg[0] == "reset") {
 			console.log(msg);
@@ -119,7 +152,7 @@ socket.on('connection', (ws) => {
 				]
 			};
 			udpPort.send(oscmsg);
-		} else if (msg[0] == "slider0") {
+		} else if (msg[0] == "changes") {
 			console.log(msg);
 
 			let oscmsg = {
@@ -132,7 +165,7 @@ socket.on('connection', (ws) => {
 				]
 			};
 			udpPort.send(oscmsg);
-		} else if (msg[0] == "slider1") {
+		} else if (msg[0] == "size") {
 			console.log(msg);
 
 			let oscmsg = {
@@ -159,7 +192,7 @@ socket.on('connection', (ws) => {
 	})
 });
 
-server.listen(process.env.PORT || 80, () => {
+server.listen(process.env.PORT || 8080, () => {
 	let addr = server.address();
 	console.log("Server started on port %s", addr.port);
 
@@ -186,7 +219,7 @@ server.listen(process.env.PORT || 80, () => {
 
 // udpPort.on("ready", function (){
 // 	udpPort.send({
-// 		address: "/change", // valid osc destination ad reciever computer
+// 		address: "/change", // valid osc destination at reciever computer
 // 		args: [
 // 			{
 // 				type: "f", // read up on osc structure
