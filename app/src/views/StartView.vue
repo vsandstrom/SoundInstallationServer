@@ -85,6 +85,7 @@ export default {
       if (!this.ws) { throw new Error('whaaat the fuuck! ws is undefined!') }
       this.ws.close()
     },
+
     updateSlider (slider) {
       console.log('updateslider with', slider)
       // console.log('value is:', event.target.value)
@@ -93,16 +94,18 @@ export default {
       console.log(msg)
       this.ws.send(msg)
     },
+
     updateSmudge (button) {
       let val
+      // currentValue is actually the previous value
       if (button.currentValue) {
-        val = parseInt(button.currentValue)
         button.currentValue = 0
-        button.label = 'smudgeIsOn'
-      } else {
         val = parseInt(button.currentValue)
-        button.currentValue = 1
         button.label = 'smudgeIsOff'
+      } else {
+        button.currentValue = 1
+        val = parseInt(button.currentValue)
+        button.label = 'smudgeIsOn'
       }
       this.ws.send(JSON.stringify([button.name, { val }]))
     },
