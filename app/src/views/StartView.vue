@@ -4,7 +4,7 @@
       Play
     </h1>
     <div v-if="ws">
-      <h1>Vi är kopplade!</h1>
+      <h3>Connected!</h3>
       <div v-for="(slider) in this.sliders" :key="slider.name">
         <div>
           {{slider.name}}: {{slider.currentValue}}
@@ -113,13 +113,15 @@ export default {
       this.ws.send(JSON.stringify([button.name, { val }]))
       button.label = 'RESETTING'
 
-      setTimeout(function () {
+      setTimeout(() => {
         button.label = 'stopReset'
         // button trigger delay
         val = 0
+        const msg = JSON.stringify([button.name, { val }])
+        console.log(msg)
         this.ws.send(JSON.stringify(['reset', { val }]))
       }, 0.5e3)
-    
+    }
   }
 }
 </script>

@@ -19,60 +19,10 @@ console.log('	888  Y8P  888888           888   d88P   888888  Y8P  888888     88
 console.log('	888   "   888888           888  d8888888888888   "   888Y88b. .d88P888  T88b 888       888    888Y88b. .d88PY88b  d88P 888  Y88b  d88P ');
 console.log('	888       8888888888888    888 d88P     888888       888 "Y88888P" 888   T88b888       888    888 "Y88888P"  "Y8888P"8888888 "Y8888P"  \n');
 
-var serverip = os.networkInterfaces().en0[1].address;
-console.log("Log onto this IP: http://" + serverip);
+const serverIP = os.networkInterfaces().en0[1].address;
+console.log("http://"+serverIP);
 
-app.set("view engine", "pug");
-app.set("index", path.join(__dirname+"/views/", "index.pug"));
-app.set("play", path.join(__dirname+"/views/", "play.pug"));
-app.set("login", path.join(__dirname+"/views/", "login.pug"));
-app.set("wait", path.join(__dirname+"/views/", "wait.pug"));
-
-const router = express.Router();
-const ip = [];
-
-
-////////////////////////////////////////////////////////////////////////////////
-// ROUTING:
-////////////////////////////////////////////////////////////////////////////////
-
-// TODO: check if button has been pressed, add to ip-array
-// res.render something else
-
-router.get('/', function(req, res) {
-	if (ip.length == 1){
-		// serverip sends current server ip to client to use with websocket
-		return res.render("play", {serverip: serverip});
-	} else {
-		return res.redirect("/login");
-	}
-});
-
-router.get('/login', function(req, res) {
-	if (ip.length == 0) {
-		ip.push(req.ip);
-		return res.redirect('/');
-	} else if (ip.length > 0){
-		return res.redirect('/wait');
-	};
-});
-
-router.get('/logout', function(req, res) {
-	ip.pop();
-	return res.redirect('/login');
-});
-
-router.get('/wait', function(req, res) {
-	setInterval(()=>{
-		if (ip.length == 0) {
-			return res.redirect('login');
-		}
-	}, 1e3);
-});
-
-// app.use('/', router);
-
-// must be after app.get for some reason, otherwise it wont log the IP of the user.
+// Use vue front-end
 app.use(express.static('app/dist/'))
 
 var udpPort = new osc.UDPPort({
@@ -121,9 +71,6 @@ socketServer.on('connection', (ws) => {
 	console.log('kopplingsförsök tillåtet!');
 	ws.on('message', (message) => {
 		msg = JSON.parse(message);
-
-		console.log(msg)
-
 		if (msg[0] == "reset") {
 			console.log(msg);
 
