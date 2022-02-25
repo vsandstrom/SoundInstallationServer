@@ -111,12 +111,10 @@ export default {
       let val = 1
 
       this.ws.send(JSON.stringify([button.name, { val }]))
-      button.target.setAttribute('disabled, disabled')
       button.label = 'RESETTING'
 
       setTimeout(function () {
         button.label = 'stopReset'
-        button.target.removeAttribute('disabled')
         // button trigger delay
         val = 0
         this.ws.send(JSON.stringify(['reset', { val }]))
