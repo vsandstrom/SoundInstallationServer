@@ -98,11 +98,11 @@ export default {
       if (button.currentValue) {
         val = parseInt(button.currentValue)
         button.currentValue = 0
-        button.label = 'smudgeOn'
+        button.label = 'smudgeIsOn'
       } else {
         val = parseInt(button.currentValue)
         button.currentValue = 1
-        button.label = 'smudgeOff'
+        button.label = 'smudgeIsOff'
       }
       this.ws.send(JSON.stringify([button.name, { val }]))
     },
@@ -119,7 +119,7 @@ export default {
         val = 0
         this.ws.send(JSON.stringify(['reset', { val }]))
       }, 0.5e3)
-    }
+    
   }
 }
 </script>
