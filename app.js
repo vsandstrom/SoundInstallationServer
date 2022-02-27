@@ -10,10 +10,10 @@ const server = http.createServer(app);
 const socketServer = new WebSocket.Server({noServer: true});
 
 console.clear();
-console.log('METAMORFOS\n');
+console.log('METAMORPHOSIS\n');
 
 const serverIP = os.networkInterfaces().en0[1].address;
-console.log("http://"+serverIP);
+// console.log("http://"+serverIP);
 
 // Use vue front-end
 app.use(express.static('app/dist/'))
@@ -134,7 +134,8 @@ socketServer.on('connection', (ws) => {
 
 server.listen(process.env.PORT || 8080, () => {
 	let addr = server.address();
-	console.log("Server started on port %s", addr.port);
+	console.log("Server located at:")
+	console.log(`http://${serverIP}:${addr.port}`);
 
 });
 
