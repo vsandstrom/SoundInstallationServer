@@ -79,6 +79,14 @@ export default {
 
       tempSocket.onopen = (ev) => {
         console.log('socket was opened!')
+        // set a time limit for how long clients socket is open.
+        setTimeout(() => {
+          if (this.ws) {
+            this.ws = undefined
+            tempSocket.close()
+            console.log('connection timed out')
+          }
+        }, 30e3)
       }
     },
     disconnect () {
