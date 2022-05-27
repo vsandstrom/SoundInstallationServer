@@ -71,6 +71,7 @@ export default {
       setTimeout(() => {
         this.ws = tempSocket
       }, 1500)
+
       tempSocket.onclose = (ev) => {
         console.log('socket was closed!!')
         alert('logged out')
